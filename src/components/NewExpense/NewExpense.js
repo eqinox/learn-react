@@ -11,7 +11,7 @@ const NewExpense = (props) => {
         props.onAddExpense(expenseData);
     };
     return <div className="new-expense">
-    {/* onSaveExpenseData is randomly invented word */}
+    {/* Lifting State Up - onSaveExpenseData is randomly invented word */}
         <ExpenseForm onSaveExpenseData={saveExpenseDataHandler} /> 
     </div>
 };
