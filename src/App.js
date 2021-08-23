@@ -1,7 +1,11 @@
 import ExpenseItem from "./components/Expenses/Expenses";
 import NewExpense from "./components/NewExpense/NewExpense";
 import Expenses from "./components/Expenses/Expenses";
-import { useState } from "react";
+import Login from './components/Login/Login';
+import Home from './components/Home/Home';
+import MainHeader from './components/MainHeader/MainHeader';
+
+import { useState, useEffect } from "react";
 
 const DUMMY_EXPENSES = [
   {
@@ -25,8 +29,10 @@ const DUMMY_EXPENSES = [
   }
 ];
 
+
 function App() {
   const [expenses, setExpenses] = useState(DUMMY_EXPENSES);
+  const storedUserLoggedInInformation = localStorage.getItem('isLoggedIn');  
 
   const addExpenseHandler = expense => {
     setExpenses(prevExpenses => {
@@ -34,8 +40,34 @@ function App() {
     })
   };
 
+  
+  const logoutHandler = () => {
+    setIsLoggedIn(false);
+  };
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+
+  const loginHandler = (email, password) => {
+    // We should of course check email and password
+    // But it's just a dummy/ demo anyways
+    localStorage.setItem('isLoggedIn', '1');
+    setIsLoggedIn(true);
+  };
+
+  useEffect(() => {
+    if (storedUserLoggedInInformation === '1') {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
   return (
     <div>
+      <MainHeader isAuthenticated={isLoggedIn} onLogout={logoutHandler} />
+      <main>
+        {!isLoggedIn && <Login onLogin={loginHandler} />}
+        {isLoggedIn && <Home onLogout={logoutHandler} />}
+      </main>
       <NewExpense onAddExpense={addExpenseHandler} />
       <Expenses items={expenses} />
     </div>
