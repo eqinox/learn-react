@@ -32,7 +32,7 @@ const DUMMY_EXPENSES = [
 
 function App() {
   const [expenses, setExpenses] = useState(DUMMY_EXPENSES);
-  const storedUserLoggedInInformation = localStorage.getItem('isLoggedIn');  
+  const storedUserLoggedInInformation = localStorage.getItem('isLoggedIn');
 
   const addExpenseHandler = expense => {
     setExpenses(prevExpenses => {
@@ -40,7 +40,7 @@ function App() {
     })
   };
 
-  
+
   const logoutHandler = () => {
     setIsLoggedIn(false);
   };
