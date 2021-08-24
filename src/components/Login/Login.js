@@ -12,6 +12,15 @@ const Login = (props) => {
   const [formIsValid, setFormIsValid] = useState(false);
 
   useEffect(() => {
+    console.log('EFFECT RUNNING only once when component is rendered');
+
+    // without enteredPassword this functions is executed when the component is removed from the dom!!!
+    return () => {
+      console.log('EFFECT CLEANUP running every time when password is entered');
+    };
+  }, [enteredPassword]);
+
+  useEffect(() => {
     const identifier = setTimeout(() => {
       console.log('Checing form for validity');
       setFormIsValid(
